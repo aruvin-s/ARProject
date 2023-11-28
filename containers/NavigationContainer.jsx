@@ -3,11 +3,13 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Screen from '.././components/MainScreen';
 import ARScene from '.././components/ARScene'; // Import your AR component
+import DetailPage from '.././components/DetailPage';
 
 const AppNavigator = createStackNavigator(
   {
     MainScreen: Screen,
-    ARScreen: ARScene, // Use your AR component as a screen
+    ARScreen: ARScene,
+    DetailScreen: DetailPage
   },
   {
     initialRouteName: 'MainScreen',
