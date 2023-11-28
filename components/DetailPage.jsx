@@ -25,7 +25,7 @@ const DetailPage = ({ navigation }) => {
         <Text style={{ fontWeight: 'bold', color: '#FF8F45', fontSize: 14, marginBottom: 10, }}>{`Price: ${product.price}`}</Text>
         <Text style={styles.titleText}>Available colors</Text>
         <Text style={styles.titleText}>About this product</Text>
-        <Text style={styles.titleText}>Product Material : Solid Wood</Text>
+        <Text style={styles.descText}>Product Material : Solid Wood</Text>
         <Text style={styles.descText}>
           Introducing the Harmony Sofa, where style meets comfort seamlessly.
           Immerse yourself in luxury with its plush, velvety upholstery and deep cushions,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: '#1F1F1F',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
   },

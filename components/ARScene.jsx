@@ -14,7 +14,14 @@ const HelloWorldSceneAR = () => {
     <ViroARScene>
       <ViroAmbientLight color="#ffffff" intensity={200} />
 
-      <ViroARPlane minHeight={0.05} minWidth={0.05}>
+      <ViroARPlane
+        minHeight={0.05}
+        minWidth={0.05}
+        onAnchorFound={() => {
+          // Code to place your 3D object on the detected plane
+          console.log('AR plane found!');
+        }}
+      >
         <Viro3DObject
           type="OBJ"
           source={require('.././assets/Koltuk.obj')}
@@ -48,6 +55,5 @@ ViroMaterials.createMaterials({
   someMaterialName: {
     shininess: 2,
     lightingModel: 'Blinn',
-    diffuseColor: '#F24822',
   },
 });
