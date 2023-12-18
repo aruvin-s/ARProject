@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
 import ARScreen from './ARScene';
+import NavigationBar from './NavigationBar';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,14 +18,48 @@ const DetailPage = ({ navigation }) => {
     imageSource: require('.././assets/sofa.jpg'),
   };
 
+  const colors = ['#50A9B0', '#FF8F45', '#FEBA49', '#171C31']; // Example colors
+
+  // State to keep track of the selected color
+  const [selectedColor, setSelectedColor] = React.useState(null);
+
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+    // You can add logic here to update the furniture color.
+  };
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
   return (
-    <ScrollView style={{backgroundColor: 'white'}}>
+    <View>
+    <ScrollView style={{backgroundColor: 'white', marginBottom: 60}}>
       <Image source={product.imageSource} style={styles.detailImage} />
       <View style={styles.container}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <Text style={styles.titleText}>{product.name}</Text>
+        <TouchableOpacity onPress={toggleFavorite}>
+          <Icon name={isFavorite ? 'favorite' : 'favorite-border'} size={24} color="#FF8F45" />
+        </TouchableOpacity>
+      </View>
         <Text style={{ fontWeight: 'bold', color: '#757575', fontSize: 14, marginBottom: 10, }}>{`Size: ${product.size}`}</Text>
         <Text style={{ fontWeight: 'bold', color: '#FF8F45', fontSize: 14, marginBottom: 10, }}>{`Price: ${product.price}`}</Text>
         <Text style={styles.titleText}>Available colors</Text>
+        <View style={styles.colorContainer}>
+          {colors.map((color, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.colorCircle,
+                { backgroundColor: color, borderColor: selectedColor === color ? '#38767B' : 'transparent' },
+              ]}
+              onPress={() => handleColorChange(color)}
+            />
+          ))}
+        </View>
         <Text style={styles.titleText}>About this product</Text>
         <Text style={styles.descText}>Product Material : Solid Wood</Text>
         <Text style={styles.descText}>
@@ -35,13 +71,21 @@ const DetailPage = ({ navigation }) => {
           Elevate your home with the perfect blend of sophistication and relaxation the Harmony Sofa.
         </Text>
         <TouchableOpacity style={styles.buttonPrimary} onPress={goToARScreen}>
-          <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Discover Shop</Text>
+        <View style={styles.buttonContent}>
+        <Icon name="map" size={24} color="#FFFFFF" />
+        <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Discover nearby shop</Text>
+        </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonSecondary} onPress={goToARScreen}>
-          <Text style={{ color: '#38767B', textAlign: 'center', fontWeight: 'bold'  }}>Try in your place</Text>
+        <View style={styles.buttonContent}>
+        <Icon name="view-in-ar" size={24} color="#38767B" />
+        <Text style={{ color: '#38767B', textAlign: 'center', fontWeight: 'bold' }}>Try in your place</Text>
+        </View>
         </TouchableOpacity>
       </View>
     </ScrollView>
+    <NavigationBar navigation={navigation} />
+    </View>
   );
 };
 
@@ -84,6 +128,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
   },
+  colorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  colorCircle: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    borderWidth: 2,
+    margin: 5,
+  },
+  buttonContent: {
+    flexDirection: 'row',  // Align children horizontally
+    alignItems: 'center',  // Center children vertically
+    justifyContent: 'center',  // Center children horizontally
+  }
+  
 });
 
 export default DetailPage;

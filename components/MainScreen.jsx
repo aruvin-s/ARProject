@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native'; // Import Image component
+import { View, ScrollView, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import DetailScreen from './DetailPage';
 
 const MainScreen = ({ navigation }) => {
@@ -7,7 +7,6 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate('DetailScreen');
   };
 
-  // Dummy product data (replace with your actual product data)
   const products = [
     {
       id: '1',
@@ -51,12 +50,10 @@ const MainScreen = ({ navigation }) => {
       price: '$19.99',
       imageSource: require('.././assets/sofa.jpg'),
     },
-    // Add more products as needed
   ];
 
   const renderProductCard = ({ item }) => (
     <View style={styles.card}>
-      {/* Display the image */}
       <Image source={item.imageSource} style={styles.cardImage} />
       <Text style={styles.cardText}>{item.name}</Text>
       <Text style={styles.cardTextBold}>{`Size: ${item.size}`}</Text>
@@ -71,7 +68,7 @@ const MainScreen = ({ navigation }) => {
     <FlatList
       data={products}
       keyExtractor={(item) => item.id}
-      numColumns={2} // Display two items per row
+      numColumns={2}
       renderItem={renderProductCard}
       contentContainerStyle={styles.flatListContainer}
     />
