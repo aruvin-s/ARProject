@@ -7,15 +7,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const { width, height } = Dimensions.get('window');
 
 const DetailPage = ({ navigation }) => {
-  const goToARScreen = () => {
-    navigation.navigate('ARScreen');
+  const goToARScreenChair = () => {
+    navigation.navigate('ARScreenChair');
   };
 
   const product = {
-    name: 'Pillow Sofa',
+    name: 'Gaming Chair',
     size: 'Medium',
-    price: 'Rp 800.000',
-    imageSource: require('.././assets/Chair/pillowsofa.jpg'),
+    price: 'Rp. 900.000',
+    imageSource: require('.././assets/glbchair/gaming.jpg'),
   };
 
   const colors = ['#50A9B0', '#FF8F45', '#FEBA49', '#171C31']; // Example colors
@@ -61,7 +61,7 @@ const DetailPage = ({ navigation }) => {
           ))}
         </View>
         <Text style={styles.titleText}>About this product</Text>
-        <Text style={styles.descText}>Product Material : Solid Wood</Text>
+        <Text style={styles.descText}>Product Material : Good Material</Text>
         <Text style={styles.descText}>
           Introducing the Harmony Sofa, where style meets comfort seamlessly.
           Immerse yourself in luxury with its plush, velvety upholstery and deep cushions,
@@ -70,13 +70,13 @@ const DetailPage = ({ navigation }) => {
           your living space, promising both style and comfort in one exquisite piece.
           Elevate your home with the perfect blend of sophistication and relaxation the Harmony Sofa.
         </Text>
-        <TouchableOpacity style={styles.buttonPrimary} onPress={goToARScreen}>
+        <TouchableOpacity style={styles.buttonPrimary} onPress={goToARScreenChair}>
         <View style={styles.buttonContent}>
         <Icon name="map" size={24} color="#FFFFFF" />
         <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Discover nearby shop</Text>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonSecondary} onPress={goToARScreen}>
+        <TouchableOpacity style={styles.buttonSecondary} onPress={goToARScreenChair}>
         <View style={styles.buttonContent}>
         <Icon name="view-in-ar" size={24} color="#38767B" />
         <Text style={{ color: '#38767B', textAlign: 'center', fontWeight: 'bold' }}>Try in your place</Text>

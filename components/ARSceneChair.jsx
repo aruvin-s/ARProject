@@ -50,10 +50,10 @@ const HelloWorldSceneAR = () => {
         }}
       >
         <Viro3DObject
-          type="OBJ"
-          source={require('.././assets/Chair/couchPoofyPillows.obj')}
-          resources={[require('.././assets/Chair/couchPoofyPillows.mtl')]}
-          scale={[3, 3, 3]}
+          type="GLB"
+          source={require('.././assets/glbchair/gaming.glb')}
+          //resources={[require('.././assets/Chair/couchPoofyPillows.mtl')]}
+          scale={[0.1, 0.1, 0.1]}
           position={objectPosition}
           rotation={currentRotation}
           onRotate={onRotate}

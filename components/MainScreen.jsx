@@ -1,87 +1,159 @@
-import React from 'react';
-import { View, ScrollView, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import NavigationBar from './NavigationBar';
 import DetailScreen from './DetailPage';
+import DetailScreenChair from './DetailPageChair';
 
 const MainScreen = ({ navigation }) => {
+  const [searchText, setSearchText] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState(null);
+
+  const handleSearch = () => {
+    const lowerCaseSearchText = searchText.toLowerCase();
+    const filtered = products.filter(
+      (item) =>
+        item.name.toLowerCase().includes(lowerCaseSearchText) ||
+        item.size.toLowerCase().includes(lowerCaseSearchText) ||
+        item.price.includes(lowerCaseSearchText)
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const clearSearch = () => {
+    setSearchText('');
+    setFilteredProducts(null);
+  };
+
   const goToDetailScreen = () => {
     navigation.navigate('DetailScreen');
+  };
+
+  const goToDetailScreenChair = () => {
+    navigation.navigate('DetailScreenChair');
   };
 
   const products = [
     {
       id: '1',
-      name: 'Harmony Sofa',
+      name: 'Pillow Sofa',
       size: 'Medium',
-      price: '$19.99',
-      imageSource: require('.././assets/Koltuk/sofa.jpg'),
+      price: 'Rp 800.000',
+      imageSource: require('.././assets/Chair/pillowsofa.jpg'),
     },
     {
       id: '2',
-      name: 'Harmony Sofa',
+      name: 'Gaming Chair',
       size: 'Medium',
-      price: '$19.99',
-      imageSource: require('.././assets/Koltuk/sofa.jpg'),
+      price: 'Rp. 900.000',
+      imageSource: require('.././assets/glbchair/gaming.jpg'),
     },
     {
       id: '3',
       name: 'Harmony Sofa',
       size: 'Medium',
-      price: '$19.99',
+      price: 'Rp 400.000',
       imageSource: require('.././assets/Koltuk/sofa.jpg'),
     },
     {
       id: '4',
       name: 'Harmony Sofa',
       size: 'Medium',
-      price: '$19.99',
+      price: 'Rp 400.000',
       imageSource: require('.././assets/Koltuk/sofa.jpg'),
     },
     {
       id: '5',
       name: 'Harmony Sofa',
       size: 'Medium',
-      price: '$19.99',
+      price: 'Rp 400.000',
       imageSource: require('.././assets/Koltuk/sofa.jpg'),
     },
     {
       id: '6',
       name: 'Harmony Sofa',
       size: 'Medium',
-      price: '$19.99',
+      price: 'Rp 400.000',
       imageSource: require('.././assets/Koltuk/sofa.jpg'),
     },
   ];
 
   const renderProductCard = ({ item }) => (
-    <View style={styles.card}>
-      <Image source={item.imageSource} style={styles.cardImage} />
-      <Text style={styles.cardText}>{item.name}</Text>
-      <Text style={styles.cardTextBold}>{`Size: ${item.size}`}</Text>
-      <Text style={styles.cardTextPrice}>{`Price: ${item.price}`}</Text>
-      <TouchableOpacity style={styles.buttonPrimary} onPress={goToDetailScreen}>
-          <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>View Details</Text>
+    <View>
+      <TouchableOpacity style={styles.card} onPress={() => item.name === 'Gaming Chair' ? goToDetailScreenChair() : goToDetailScreen()}>
+        <Image source={item.imageSource} style={styles.cardImage} />
+        <Text style={styles.cardText}>{item.name}</Text>
+        <Text style={styles.cardTextBold}>{`Size: ${item.size}`}</Text>
+        <Text style={styles.cardTextPrice}>{`Price: ${item.price}`}</Text>
         </TouchableOpacity>
     </View>
   );
 
   return (
-    <FlatList
-      data={products}
-      keyExtractor={(item) => item.id}
-      numColumns={2}
-      renderItem={renderProductCard}
-      contentContainerStyle={styles.flatListContainer}
-    />
+    <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search furniture"
+          value={searchText}
+          onChangeText={(text) => setSearchText(text)}
+        />
+        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Search</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.clearButton} onPress={clearSearch}>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Clear</Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={filteredProducts || products}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        renderItem={renderProductCard}
+        contentContainerStyle={styles.flatListContainer}
+      />
+      <NavigationBar navigation={navigation} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   flatListContainer: {
     backgroundColor: 'white',
-    paddingVertical: 20,
+  },
+  container: {
+    flex: 1,
+  },
+  searchContainer: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  searchButton: {
+    marginLeft: 10,
+    backgroundColor: '#38767B',
+    borderRadius: 8,
+    padding: 10,
+  },
+  clearButton: {
+    marginLeft: 10,
+    backgroundColor: '#FF6347',
+    borderRadius: 8,
+    padding: 10,
   },
   card: {
-    flex: 1,
+    width: 170, // Set a fixed width for the cards
+    height: 220,
     padding: 20,
     margin: 10,
     borderWidth: 1,
@@ -89,10 +161,10 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     backgroundColor: '#fff',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 2,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    //elevation: 1,
   },
   cardImage: {
     width: '100%',
@@ -105,19 +177,19 @@ const styles = StyleSheet.create({
     color: '#1F1F1F',
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 4,
   },
   cardTextBold: {
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     color: '#757575',
     fontSize: 14,
-    marginBottom: 5,
+    marginBottom: 4,
   },
   cardTextPrice: {
     fontWeight: 'bold',
     color: '#FF8F45',
     fontSize: 14,
-    marginBottom: 5,
+    marginBottom: 4,
   },
   buttonPrimary: {
     height: 48,
