@@ -1,59 +1,97 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import {
   ViroARScene,
   ViroAmbientLight,
   ViroARPlane,
   Viro3DObject,
-  ViroMaterials,
   ViroARSceneNavigator,
 } from '@viro-community/react-viro';
 
-const HelloWorldSceneAR = () => {
+const HelloWorldSceneAR = ({ handleRotateRight, handleRotateLeft, rotation }) => {
+  const onDrag = (dragToPos, source) => {
+    if (rotation && rotation.length === 3 && source.dragStartPosition) {
+      const deltaY = dragToPos[1] - (source.dragStartPosition[1] || 0);
+      setRotation([0, (rotation[1] || 0) + deltaY, 0]);
+    }
+  };
+
   return (
     <ViroARScene>
-      <ViroAmbientLight color="#ffffff" intensity={200} />
-
+      <ViroAmbientLight color="#ffffff" />
       <ViroARPlane
         minHeight={0.05}
         minWidth={0.05}
+        minDistance={4}
+        maxDistance={10}
         onAnchorFound={() => {
-          // Code to place your 3D object on the detected plane
           console.log('AR plane found!');
         }}
       >
         <Viro3DObject
           type="OBJ"
-          source={require('.././assets/Koltuk.obj')}
+          source={require('.././assets/Chair/couchPoofyPillows.obj')}
+          resources={[require('.././assets/Chair/couchPoofyPillows.mtl')]}
           scale={[1, 1, 1]}
-          position={[0, 0, 0]}
-          rotation={[0, 0, 0]}
-          materials={['someMaterialName']}
+          position={[0, -1, -3]}
+          rotation={rotation}
+          onDrag={onDrag}
         />
       </ViroARPlane>
     </ViroARScene>
   );
 };
 
-export default () => {
+const ARScene = () => {
+  const [rotation, setRotation] = useState([0, 0, 0]);
+
+  const handleRotateRight = () => {
+    setRotation([rotation[0], (rotation[1] || 0) + 45, rotation[2]]);
+  };
+
+  const handleRotateLeft = () => {
+    setRotation([rotation[0], (rotation[1] || 0) - 45, rotation[2]]);
+  };
+
   return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: HelloWorldSceneAR,
-      }}
-      style={styles.f1}
-    />
+    <View style={styles.container}>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{ scene: HelloWorldSceneAR, handleRotateRight, handleRotateLeft, rotation }}
+        style={styles.f1}
+      />
+      {/* Rotate Right Button */}
+      <TouchableOpacity style={[styles.rotateButton, { right: 20 }]} onPress={handleRotateRight}>
+        <Text style={styles.buttonText}>Rotate Right</Text>
+      </TouchableOpacity>
+
+      {/* Rotate Left Button */}
+      <TouchableOpacity style={[styles.rotateButton, { right: 120 }]} onPress={handleRotateLeft}>
+        <Text style={styles.buttonText}>Rotate Left</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
-var styles = StyleSheet.create({
-  f1: { flex: 1 },
-});
-
-ViroMaterials.createMaterials({
-  someMaterialName: {
-    shininess: 2,
-    lightingModel: 'Blinn',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  f1: {
+    flex: 1,
+  },
+  rotateButton: {
+    position: 'absolute',
+    bottom: 20,
+    padding: 10,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+    margin: 10,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
   },
 });
+
+export default ARScene;

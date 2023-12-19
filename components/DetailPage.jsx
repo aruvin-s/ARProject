@@ -15,7 +15,7 @@ const DetailPage = ({ navigation }) => {
     name: 'Harmony Sofa',
     size: 'Medium',
     price: '$19.99',
-    imageSource: require('.././assets/sofa.jpg'),
+    imageSource: require('.././assets/Koltuk/sofa.jpg'),
   };
 
   const colors = ['#50A9B0', '#FF8F45', '#FEBA49', '#171C31']; // Example colors
