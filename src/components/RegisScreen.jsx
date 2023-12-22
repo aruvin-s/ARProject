@@ -7,59 +7,82 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React, {useState} from 'react';
-import { Login } from '../services/Auth';
+import { Regis } from '../services/Auth';
 
-const LoginScreen = ({navigation}) => {
+const Register = ({navigation}) => {
   const handleLinkPress = () => {
-    navigation.navigate('Sign Up');
+    navigation.navigate('Login');
   };
-  const loginHandler = () => {
-    Login(email, password, navigation)
-  }
 
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  const [passwordBtn, setPasswordBtn] = useState(true);
+  const signupHandler = () => {
+    return Regis(email, confPassword, navigation)
+  };
+
+  const [email, setEmail] = useState('');
+  const [confPassword, setConfPassword] = useState('');
+  const [passBtn, getPassBtn] = useState(true);
+  const [confPassBtn, getConfPassBtn] = useState(true);
 
   return (
     <View style={style.container}>
       <View>
         <View style={style.textContainer}>
           <Text style={{fontSize: 24, fontWeight: '800', color: '#1f1f1f'}}>
-            Welcome <Text style={{color: '#FF8F45'}}>Back!</Text>
+            Get <Text style={{color: '#50A9B0'}}>Started</Text> in{' '}
+            <Text style={{color: '#FF8F45'}}>seconds</Text>
           </Text>
           <Text style={{color: '#757575', fontWeight: '400'}}>
             Login to find your suitable furniture
           </Text>
         </View>
+        {/* <Text>{email != null && email}</Text> */}
         <View style={style.formContainer}>
           <TextInput
             style={style.textInput}
             placeholder="Email"
             placeholderTextColor="#bcbcbc"
             defaultValue={email}
-            onChangeText={text => setEmail(text)}
-            />
+            onChangeText={input => setEmail(input)}
+          />
+          <TextInput
+            style={style.textInput}
+            placeholder="Username"
+            placeholderTextColor="#bcbcbc"
+          />
           <View style={style.passwordInput}>
             <TextInput
               style={{width: '90%', fontSize: 16}}
               placeholder="Password"
               placeholderTextColor="#bcbcbc"
-              secureTextEntry={passwordBtn}
-              defaultValue={password}
-              onChangeText={text => setPassword(text)}
+              secureTextEntry={passBtn}
             />
-            <TouchableOpacity onPress={() => setPasswordBtn(!passwordBtn)}>
+            <TouchableOpacity onPress={() => getPassBtn(!passBtn)}>
               <Icon
-                name={passwordBtn ? 'visibility' : 'visibility-off'}
+                name={passBtn ? 'visibility' : 'visibility-off'}
+                size={24}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={style.passwordInput}>
+            <TextInput
+              style={{width: '90%', fontSize: 16}}
+              placeholder="Confirm Password"
+              placeholderTextColor="#bcbcbc"
+              secureTextEntry={confPassBtn}
+              defaultValue={confPassBtn}
+              onChangeText={input => setConfPassword(input)}
+            />
+            <TouchableOpacity onPress={() => getConfPassBtn(!confPassBtn)}>
+              <Icon
+                name={confPassBtn ? 'visibility' : 'visibility-off'}
                 size={24}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={style.button} onPress={() => loginHandler()}>
+        <TouchableOpacity style={style.button} onPress={() => signupHandler()}>
           <Text style={{fontSize: 16, color: '#fff', fontWeight: 'bold'}}>
-            Login
+            Sign Up
           </Text>
         </TouchableOpacity>
       </View>
@@ -71,12 +94,12 @@ const LoginScreen = ({navigation}) => {
           flexDirection: 'row',
           gap: 4,
         }}>
-        <Text style={{fontSize: 16}}>Are new here?</Text>
+        <Text style={{fontSize: 16}}>Already have an account?</Text>
         <TouchableOpacity>
           <Text
             style={{fontSize: 16, color: '#38767B', fontWeight: 800}}
             onPress={handleLinkPress}>
-            Sign Up here
+            Login here
           </Text>
         </TouchableOpacity>
       </View>
@@ -121,9 +144,9 @@ const style = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 2,
     fontSize: 16,
-    flex:0,
+    flex: 0,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   button: {
     width: 320,
@@ -136,4 +159,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default Register;

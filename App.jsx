@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigationContainer from './src/containers/NavigationContainer';
+import NavigationContainer from './src/NavigationContainer';
 import 'react-native-gesture-handler';
 
 const App = () => {
