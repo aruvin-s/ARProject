@@ -11,6 +11,10 @@ const DetailPage = ({ navigation }) => {
     navigation.navigate('ARScreenOfficeChair');
   };
 
+  const goToShopList = () => {
+    navigation.navigate('Shop');
+  };
+
   const product = {
     name: 'Office Chair',
     size: 'Medium',
@@ -70,7 +74,7 @@ const DetailPage = ({ navigation }) => {
           your living space, promising both style and comfort in one exquisite piece.
           Elevate your home with the perfect blend of sophistication and relaxation the Harmony Sofa.
         </Text>
-        <TouchableOpacity style={styles.buttonPrimary} onPress={goToARScreen}>
+        <TouchableOpacity style={styles.buttonPrimary} onPress={goToShopList}>
         <View style={styles.buttonContent}>
         <Icon name="map" size={24} color="#FFFFFF" />
         <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Discover nearby shop</Text>
