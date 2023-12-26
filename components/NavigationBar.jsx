@@ -17,14 +17,6 @@ const NavigationBar = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.navButton}
-        onPress={() => navigation.navigate('Collection')}
-      >
-        <Icon name="view-module" size={24} color="#757575" />
-        <Text style={styles.navText}>Collection</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.navButton}
         onPress={() => navigation.navigate('Profile')}
       >
         <Icon name="person" size={24} color="#757575" />
