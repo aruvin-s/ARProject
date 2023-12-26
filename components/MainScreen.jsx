@@ -3,6 +3,8 @@ import { View, ScrollView, Text, Button, Image, StyleSheet, FlatList, TouchableO
 import NavigationBar from './NavigationBar';
 import DetailScreen from './DetailPage';
 import DetailScreenChair from './DetailPageChair';
+import DetailScreenCabinet from './DetailPageCabinet';
+import DetailScreenOfficeChair from './DetailPageOfficeChair';
 
 const MainScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
@@ -32,6 +34,14 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate('DetailScreenChair');
   };
 
+  const goToDetailScreenCabinet = () => {
+    navigation.navigate('DetailScreenCabinet');
+  };
+
+  const goToDetailScreenOfficeChair = () => {
+    navigation.navigate('DetailScreenOfficeChair');
+  };
+  
   const products = [
     {
       id: '1',
@@ -39,6 +49,7 @@ const MainScreen = ({ navigation }) => {
       size: 'Medium',
       price: 'Rp 800.000',
       imageSource: require('.././assets/Chair/pillowsofa.jpg'),
+      productPage: goToDetailScreen,
     },
     {
       id: '2',
@@ -46,40 +57,29 @@ const MainScreen = ({ navigation }) => {
       size: 'Medium',
       price: 'Rp. 900.000',
       imageSource: require('.././assets/glbchair/gaming.jpg'),
+      productPage: goToDetailScreenChair
     },
     {
       id: '3',
-      name: 'Harmony Sofa',
-      size: 'Medium',
-      price: 'Rp 400.000',
-      imageSource: require('.././assets/Koltuk/sofa.jpg'),
+      name: 'Cabinet',
+      size: 'Small',
+      price: 'Rp 300.000',
+      imageSource: require('.././assets/Chair/cabinet.jpg'),
+      productPage: goToDetailScreenCabinet
     },
     {
       id: '4',
-      name: 'Harmony Sofa',
+      name: 'Office Chair',
       size: 'Medium',
       price: 'Rp 400.000',
-      imageSource: require('.././assets/Koltuk/sofa.jpg'),
-    },
-    {
-      id: '5',
-      name: 'Harmony Sofa',
-      size: 'Medium',
-      price: 'Rp 400.000',
-      imageSource: require('.././assets/Koltuk/sofa.jpg'),
-    },
-    {
-      id: '6',
-      name: 'Harmony Sofa',
-      size: 'Medium',
-      price: 'Rp 400.000',
-      imageSource: require('.././assets/Koltuk/sofa.jpg'),
-    },
+      imageSource: require('.././assets/Chair/officeChair.jpg'),
+      productPage: goToDetailScreenOfficeChair
+    }
   ];
 
   const renderProductCard = ({ item }) => (
     <View>
-      <TouchableOpacity style={styles.card} onPress={() => item.name === 'Gaming Chair' ? goToDetailScreenChair() : goToDetailScreen()}>
+      <TouchableOpacity style={styles.card} onPress={item.productPage}>
         <Image source={item.imageSource} style={styles.cardImage} />
         <Text style={styles.cardText}>{item.name}</Text>
         <Text style={styles.cardTextBold}>{`Size: ${item.size}`}</Text>
@@ -119,10 +119,11 @@ const MainScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   flatListContainer: {
-    backgroundColor: 'white',
+    paddingBottom: 40
   },
   container: {
     flex: 1,
+    backgroundColor: 'white'
   },
   searchContainer: {
     backgroundColor: 'white',
