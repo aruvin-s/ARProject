@@ -53,7 +53,7 @@ const HelloWorldSceneAR = () => {
           type="GLB"
           source={require('.././assets/glbchair/gaming.glb')}
           //resources={[require('.././assets/Chair/couchPoofyPillows.mtl')]}
-          scale={[0.1, 0.1, 0.1]}
+          scale={[0.01, 0.01, 0.01]}
           position={objectPosition}
           rotation={currentRotation}
           onRotate={onRotate}
