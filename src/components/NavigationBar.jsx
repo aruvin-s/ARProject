@@ -17,7 +17,7 @@ const NavigationBar = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.navButton}
-        onPress={() => navigation.navigate('Profile')}
+        onPress={() => navigation.navigate('UserScreen')}
       >
         <Icon name="person" size={24} color="#757575" />
         <Text style={styles.navText}>Profile</Text>
