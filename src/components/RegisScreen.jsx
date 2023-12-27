@@ -94,7 +94,7 @@ const Register = ({navigation}) => {
           flexDirection: 'row',
           gap: 4,
         }}>
-        <Text style={{fontSize: 16}}>Already have an account?</Text>
+        <Text style={{fontSize: 16, color: 'black'}}>Already have an account?</Text>
         <TouchableOpacity>
           <Text
             style={{fontSize: 16, color: '#38767B', fontWeight: 800}}

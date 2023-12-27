@@ -71,7 +71,7 @@ const LoginScreen = ({navigation}) => {
           flexDirection: 'row',
           gap: 4,
         }}>
-        <Text style={{fontSize: 16}}>Are new here?</Text>
+        <Text style={{fontSize: 16, color: 'black'}}>Are new here?</Text>
         <TouchableOpacity>
           <Text
             style={{fontSize: 16, color: '#38767B', fontWeight: 800}}
